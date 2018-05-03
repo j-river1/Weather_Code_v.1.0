@@ -19,10 +19,7 @@ lapply(list.of.packages, require, character.only = TRUE)
 source("All_Functions.R")
 
 
-#The setwd() must be directory where are the source above.
-#Put into the folder Original_Data all weaher files data.
- 
-
+#**The setwd() must be directory where are the source above.
 
 
 #Create folders
@@ -41,7 +38,7 @@ dir.create(file.path(mainDir, "Files_By_Station" ), showWarnings = FALSE)
 mainDir <- getwd()
 mainDir <-  paste0(mainDir,"/", "Graphics" )
 dir.create(file.path(mainDir, "Clustering_Stations"), showWarnings = FALSE)
-
+#**Put into the folder Original_Data all weaher files data.
 
 
 
