@@ -35,15 +35,6 @@ library(tsoutliers)
 
 
 #Load functions
-source("HOURLYCONTROL.R")
-source("DAILYCONTROL.R")
-source("FORMATRMAWGEN.R")
-source("RANDOMFOREST.R")
-source("RMAWGEN.R")
-source("FORMATRANDOMFOREST.R")
-source("PLOTS.R")
-source("DATAFINAL.R")
-
 source("All_Functions.R")
 
 
