@@ -3,36 +3,17 @@ rm(list=ls())
 .rs.restartR()
 
 #Libraries
-library(dplyr)
-library(stringr)
-library(maptools)
-library(parallel)
-library(reshape2)
-library(imputeTS)
-library(plyr)
-library(abind)
-library(zoo)
-library(stringr)
-library(RMAWGEN)
-library(ggplot2)
-library(randomForest)
-library(RCurl)
-library(data.table)
-library(sp)
-library(rgdal)
-library(geosphere)
-library(here)
-library(sp)
-library(rgdal)
-library(geosphere)
-library(ggdendro)
-library(dismo)
-library(rgeos)
-library(roxygen2)
-library(tsoutliers)
+libraries <- c("tsoutliers","roxygen2","rgeos","dismo","ggdendro", "geosphere", "rgdal", "sp", "here",
+               "geosphere", "data.table", "RCurl","randomForest","ggplot2","RMAWGEN","stringr", "zoo",
+               "abind", "plyr", "imputeTS","reshape2","parallel", "maptools","stringr","dplyr")
 
+#Install packages 
+list.of.packages <- libraries
+new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
+if(length(new.packages)) install.packages(new.packages)
 
-
+#Load libraries
+lapply(list.of.packages, require, character.only = TRUE)
 
 #Load functions
 source("All_Functions.R")
