@@ -1,6 +1,6 @@
 
+
 rm(list=ls()) 
-.rs.restartR()
 
 #Libraries
 libraries <- c("tsoutliers","roxygen2","rgeos","dismo","ggdendro", "geosphere", "rgdal", "sp", "here",
@@ -53,7 +53,7 @@ LONG <- c(-110.119, NA)
 LAT <- c(27.51458, NA)
 TZ <- c("Etc/GMT+7", NA)
 Hourly_restric <- data.frame(Variables, TX, TM, SR,RH, LONG, LAT, TZ)
-write.csv(Hourly_restric, paste0(here(),"/SpatialInformation_InputVariables/","Hourly_Restrictions.csv"),row.names = FALSE)
+write.csv(Hourly_restric, paste0(here::here(),"/SpatialInformation_InputVariables/","Hourly_Restrictions.csv"),row.names = FALSE)
 
 
 #Daily Restrictions as data frame
@@ -64,7 +64,7 @@ TM <- c(48,-10)
 SR <- c(1029,0)
 RH <- c(100,0)
 Daily_restric <- data.frame(Variables, TX, TM, SR,RH)
-write.csv(Daily_restric , paste0(here(),"/SpatialInformation_InputVariables/","Daily_Restrictions.csv"), row.names = FALSE)
+write.csv(Daily_restric , paste0(here::here(),"/SpatialInformation_InputVariables/","Daily_Restrictions.csv"), row.names = FALSE)
 
 
 #Variables
@@ -80,7 +80,7 @@ separt <- ""
 date_format <- "%Y%m%d"
 dist_Station <- 20000
 variables <- data.frame("Star_date"=Start_date, "End_date"=End_date, "Approved_percentage"= Percentage, "separt"=separt,"Date_Format"=date_format, "Distance_Cluster_Station"=dist_Station, "Time_Type"=Hourly_Daily)
-write.csv(variables, paste0(here(),"/SpatialInformation_InputVariables/","Input_Variables.csv"), row.names = FALSE)
+write.csv(variables, paste0(here::here(),"/SpatialInformation_InputVariables/","Input_Variables.csv"), row.names = FALSE)
 
 
 #Information Spatial information of stations. Longitude and Latitude.
