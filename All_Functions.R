@@ -254,7 +254,7 @@ info_station<- function(file, percentage, time, sepa )
   station_name <- split_name(file)[1]
   variable <- split_name(file)[2]
   
-  read_file <- read.table(paste0(here(), "/AfterDailyControl_Data/",file), header = T)
+  read_file <- read.table(paste0(here::here(), "/AfterDailyControl_Data/",file), header = T)
   read_file$Value <- as.double(read_file$Value)
   read_file$Date  <- as.Date(as.character(read_file$Date ), format = "%Y-%m-%d" )
   
@@ -387,7 +387,7 @@ daily_control <- function (daily_restric, file, sepa, date_format )
   
   
   #write.table(read_file, paste0("./AfterDailyControl_Data/", file), row.names = FALSE)
-  write.table(read_file, paste0(here(), "/AfterDailyControl_Data/", new_file), row.names = FALSE)
+  write.table(read_file, paste0(here::here(), "/AfterDailyControl_Data/", new_file), row.names = FALSE)
   #write.table(read_file, file, row.names = FALSE)
   #write.table(read_file, file, row.names = FALSE)
   file.copy(from=new_file, to ="../AfterDailyControl_Data")
@@ -667,7 +667,7 @@ put_format<- function(originalfile, date_format="%Y%m%d", sepa)
   
   
   #Read file
-  fileoriginal <- read.table(paste0(here(),"/Original_Data/",originalfile), header= TRUE, sep=sepa)
+  fileoriginal <- read.table(paste0(here::here(),"/Original_Data/",originalfile), header= TRUE, sep=sepa)
   
   
   #Check if file is daily or hourly
@@ -816,11 +816,11 @@ merge_tables <- function(namefile)
 match_files  <- function(type)
 {
   
-  slitingnames <- split_name(list.files(here("Rmawgen", "Files_By_Station")))
+  slitingnames <- split_name(list.files(here::here("Rmawgen", "Files_By_Station")))
   length <- seq(1, length(slitingnames ), by = 3)
-  names_stations <- unique(split_name(list.files(here("Rmawgen", "Files_By_Station")))[length])
+  names_stations <- unique(split_name(list.files(here::here("Rmawgen", "Files_By_Station")))[length])
   
-  files  <- lapply(names_stations, merge_files, listfiles = list.files(here("Rmawgen", "Files_By_Station")), type = type)
+  files  <- lapply(names_stations, merge_files, listfiles = list.files(here::here("Rmawgen", "Files_By_Station")), type = type)
   return (files)
   
 }
@@ -830,7 +830,7 @@ merge_files <- function (name, listfiles, type)
 {
   name <- as.character(name)
   
-  files <-  list.files(here("Rmawgen", "Files_By_Station"), pattern= name)
+  files <-  list.files(here::here("Rmawgen", "Files_By_Station"), pattern= name)
   read_files <- lapply(files,label_for_files)
   tablaPerday <- Reduce(function(dtf1, dtf2) merge(dtf1, dtf2, by = "Date", all = TRUE),read_files)
   
@@ -838,11 +838,11 @@ merge_files <- function (name, listfiles, type)
   
   if(type == "RandomForest")
   {
-    write.table(tablaPerday, file = paste0(here("RandomForest"), "/", namec), row.names = FALSE, quote = FALSE, col.names = TRUE)
+    write.table(tablaPerday, file = paste0(here::here("RandomForest"), "/", namec), row.names = FALSE, quote = FALSE, col.names = TRUE)
   }
   if(type == "Final_Data")
   {
-    write.table(tablaPerday, file = paste0(here("Final_Data", namec)), row.names = FALSE, quote = FALSE, col.names = TRUE)
+    write.table(tablaPerday, file = paste0(here::here("Final_Data", namec)), row.names = FALSE, quote = FALSE, col.names = TRUE)
   }
   
   return(tablaPerday)
@@ -852,7 +852,7 @@ merge_files <- function (name, listfiles, type)
 
 label_for_files <- function (name)
 {
-  file <- read.table(paste0(here("Rmawgen", "Files_By_Station"), "/", name), header=T)
+  file <- read.table(paste0(here::here("Rmawgen", "Files_By_Station"), "/", name), header=T)
   variable <-  split_name(name)[2]
   names(file) <- c("Date", variable)
   
@@ -864,14 +864,14 @@ label_for_files <- function (name)
 move_files_SR_HR <- function ()
 {
   
-  list_files_SR <- list.files(here("AfterDailyControl_Data"), pattern ="_SR_")
-  list_files_RH <- list.files(here("AfterDailyControl_Data"), pattern ="_RH_")
+  list_files_SR <- list.files(here::here("AfterDailyControl_Data"), pattern ="_SR_")
+  list_files_RH <- list.files(here::here("AfterDailyControl_Data"), pattern ="_RH_")
   
   
   for  (i in 1: length(list_files_SR))
   {
-    path_from <- paste0(here("AfterDailyControl_Data"), "/", list_files_SR[i])
-    path_to <- paste0(here("Rmawgen", "Files_By_Station"), "/",list_files_SR[i])
+    path_from <- paste0(here::here("AfterDailyControl_Data"), "/", list_files_SR[i])
+    path_to <- paste0(here::here("Rmawgen", "Files_By_Station"), "/",list_files_SR[i])
     file.copy(path_from, path_to)
     
   }
@@ -879,8 +879,8 @@ move_files_SR_HR <- function ()
   for  (i in 1: length(list_files_RH))
   {
     name_comp <- list_files_RH[i]
-    path_from <- paste0(here("AfterDailyControl_Data"), "/", list_files_RH[i])
-    path_to <- paste0(here("Rmawgen", "Files_By_Station"), "/",list_files_RH[i])
+    path_from <- paste0(here::here("AfterDailyControl_Data"), "/", list_files_RH[i])
+    path_to <- paste0(here::here("Rmawgen", "Files_By_Station"), "/",list_files_RH[i])
     file.copy(path_from, path_to)
     
   }
@@ -916,7 +916,7 @@ read_files_form <- function (files, variable)
   vari <- variable
   
   #Start and End Data
-  file <- read.csv(paste0(here(),"/Results/","Results_DailyControl.csv"), header = T)
+  file <- read.csv(paste0(here::here(),"/Results/","Results_DailyControl.csv"), header = T)
   file$Star_Data <- as.Date(as.character(file$Star_Data), format = "%Y-%m-%d")
   Start_date<- min(as.double(format(file$Star_Data, "%Y")))
   Start_date <- paste0(Start_date, "-1-1")
@@ -1000,10 +1000,10 @@ choose_stations <- function()
   
   #Clustering for stations
   #Read file with longitude and latitude
-  file_long_lat <- read.csv(paste0(here(),"/Results/","Results_DailyControl.csv"), header = T)
+  file_long_lat <- read.csv(paste0(here::here(),"/Results/","Results_DailyControl.csv"), header = T)
   
   #Read value of distance clustering
-  dist_est <- read.csv(paste0(here(),"/SpatialInformation_InputVariables/","Input_Variables.csv"), header = T)
+  dist_est <- read.csv(paste0(here::here(),"/SpatialInformation_InputVariables/","Input_Variables.csv"), header = T)
   
   
   file_station <- file_long_lat[, -c(4:7)]
@@ -1049,7 +1049,7 @@ choose_stations <- function()
     ci <- circles(cent, d=d, lonlat=T)
     
     
-    jpeg(paste0(here(), "/Graphics/Clustering_Stations/Clustering_Stations.jpeg"))
+    jpeg(paste0(here::here(), "/Graphics/Clustering_Stations/Clustering_Stations.jpeg"))
     plot(ci@polygons, axes=T, main = paste("Clustering Stations to", "\n", d, " meters") )
     plot(long_lati, col=rainbow(4)[factor(long_lati$clust)], add=T)
     dev.off()
@@ -1059,7 +1059,7 @@ choose_stations <- function()
     data_star_end <- file_long_lat[,c("Station_Name", "Star_Data", "End_Data","Variable_Name")]
     data_star_end  <- unique(data_star_end )
     total <- merge(long_lati@data, data_star_end, by= "Station_Name", all.x= TRUE)
-    write.csv(total, paste0(here(), "/Results/Clustering_Stations.csv"))
+    write.csv(total, paste0(here::here(), "/Results/Clustering_Stations.csv"))
     
   }
   
@@ -1140,7 +1140,7 @@ put_format<- function(originalfile, date_format="%Y%m%d", sepa)
   
   
   #Read file
-  fileoriginal <- read.table(paste0(here(),"/Original_Data/",originalfile), header= TRUE, sep=sepa)
+  fileoriginal <- read.table(paste0(here::here(),"/Original_Data/",originalfile), header= TRUE, sep=sepa)
   
   
   #Check if file is daily or hourly
@@ -1597,10 +1597,10 @@ move_files_txt <- function(from, to, format ="\\.txt$")
 
 #Spatial_information works for populate latitude and longitude information of station
 
-Spatial_Information <- function(files = list.files(here("Original_Data")))
+Spatial_Information <- function(files = list.files(here::here("Original_Data")))
 {
   #Name station
-  files <- split_name(list.files(here("Original_Data")))
+  files <- split_name(list.files(here::here("Original_Data")))
   
   if(length(files)==0)
   {
@@ -1617,7 +1617,7 @@ Spatial_Information <- function(files = list.files(here("Original_Data")))
     Info_spatial$Latitude <- NA
     Info_spatial$Longitude <- NA
     Info_spatial$Altitude <- NA
-    write.csv(Info_spatial, paste0(here(),"/SpatialInformation_InputVariables/Information_Spatial_Stations.csv"), row.names = FALSE)
+    write.csv(Info_spatial, paste0(here::here(),"/SpatialInformation_InputVariables/Information_Spatial_Stations.csv"), row.names = FALSE)
     
   }
   
@@ -1826,13 +1826,13 @@ generate_missing_values <- function (variable, choose_station)
   
   #station_info <- choose_stations(resumefile)
   #names
-  name_TX <- paste0(here(), "/Rmawgen/", "TX.csv")
+  name_TX <- paste0(here::here(), "/Rmawgen/", "TX.csv")
   TEMPERATURE_MAX <- read.csv(name_TX, header=T, check.names = FALSE)
   
-  name_TM <- paste0(here(), "/Rmawgen/", "TM.csv")
+  name_TM <- paste0(here::here(), "/Rmawgen/", "TM.csv")
   TEMPERATURE_MIN <- read.csv(name_TM, header =T, check.names = FALSE)
   
-  name_P <- paste0(here(), "/Rmawgen/", "P.csv")
+  name_P <- paste0(here::here(), "/Rmawgen/", "P.csv")
   PRECIPITATION <- read.csv(name_P, header =T, check.names = FALSE)
   
   
@@ -2144,7 +2144,7 @@ controlHourlyDaily <- function(type)
     #Change directory Original_Data
     #Hourly Control
     #final_results <- mclapply(list.files(), results, restricfile = Hourly_restric ,mc.cores=20)
-    final_results <- lapply(list.files(here("Original_Data")), results, restricfile = Hourly_restric, typefile =2, sepa = separt)
+    final_results <- lapply(list.files(here::here("Original_Data")), results, restricfile = Hourly_restric, typefile =2, sepa = separt)
     
     #Results of Hourly Control
     final_results <- do.call("rbind", final_results)
@@ -2159,13 +2159,13 @@ controlHourlyDaily <- function(type)
     #Hourly to Daily
     #The percentage is for checking if a station has enough data per day.   
     #mclapply (list.files(pattern = "\\.txt$"), Hour_to_Day, percentage = 0.8,mc.cores=20)
-    lapply (list.files(here("AfterHourlyControl_Data")), Hour_to_Day, percentage = Percentage)
+    lapply (list.files(here::here("AfterHourlyControl_Data")), Hour_to_Day, percentage = Percentage)
     
     #Results Daily Control
     results <- lapply(list.files(), info_station, percentage=Percentage)
     final_results <- do.call("rbind", results)
     colnames(final_results) <- c("Station_Name", "Variable_Name", "Star_Data", "End_Data", "Total_Days", "Acceptable_Days","Percentage" )
-    write.csv(final_results, file = paste0(here("Results"), "/Results_DailyControl.csv") )
+    write.csv(final_results, file = paste0(here::here("Results"), "/Results_DailyControl.csv") )
     
   }
   
@@ -2175,19 +2175,19 @@ controlHourlyDaily <- function(type)
     #Daily Control NA
     names_stations_NA <- Check_All_Station_NA(list.files(path = "./Original_Data"), variables$Approved_percentage)
     names_stations_few_NA <- Check_All_Station_Few_NA(list.files(path = "./Original_Data"), 0.06)
-    lapply(list.files(here("Original_Data")), daily_control, daily_restric = Daily_restric, sepa = separt, date_format = date_format )
+    lapply(list.files(here::here("Original_Data")), daily_control, daily_restric = Daily_restric, sepa = separt, date_format = date_format )
     
     results <- lapply(list.files(path= "./AfterDailyControl_Data"), info_station, percentage= variables$Approved_percentage, sepa = variables$separt, time =2)
     final_results <- do.call("rbind", results)
     colnames(final_results) <- c("Station_Name", "Variable_Name", "Star_Data", "End_Data")
     
     #Station number
-    lat_Lon_El <- read.csv(paste0(here(),"/SpatialInformation_InputVariables/","Information_Spatial_Stations.csv"))
+    lat_Lon_El <- read.csv(paste0(here::here(),"/SpatialInformation_InputVariables/","Information_Spatial_Stations.csv"))
     lat_Lon_El$Station_Name <- as.character(lat_Lon_El$Station_Name )
     final_results$Station_Name <- as.character(final_results$Station_Name)
     
     total <-merge(lat_Lon_El,final_results, by = c("Station_Name"), all =TRUE)
-    write.csv( total, file = paste0(here(), "/Results/","Results_DailyControl.csv"), row.names = FALSE)
+    write.csv( total, file = paste0(here::here(), "/Results/","Results_DailyControl.csv"), row.names = FALSE)
     
     
   }
