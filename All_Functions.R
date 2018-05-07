@@ -299,19 +299,18 @@ daily_control <- function (daily_restric, file, sepa, date_format )
   splitname <- split_name(file)
   variable <- splitname[2]  
   
-  # #ReadFile
+  #ReadFile
   #convert_units <- function(weatherdata, date_format="%Y%m%d", typefile, sepa)
   read_file <- convert_units(weatherdata=file , date_format=date_format, sepa= sepa )
   
+  file_naomit <- na.omit(read_file)
+  mod <- lm(Value ~ ., data=file_naomit)
+  cooksd <- cooks.distance(mod)
+  umbral <- 5*mean(cooksd, na.rm=T)  
+  index <- which(cooksd>umbral)
+  values <- file_naomit[index, ]
   
-  #read_file as series time
-  series_read_file <- as.numeric(read_file$Value)
-  series_read_file <-  ts(read_file$Value) 
   
-  #Outliers
-  outliers <- tsoutliers::tso(series_read_file)
-  amount_out <- dim(outliers$outliers)[1]
-
   
   if( anyNA(read_file$Date)== TRUE)
   {
@@ -320,6 +319,28 @@ daily_control <- function (daily_restric, file, sepa, date_format )
   
   if(variable == "RH")
   {
+    
+    
+    file_naomit <- na.omit(read_file)
+    mod <- lm(Value ~ ., data=file_naomit)
+    cooksd <- cooks.distance(mod)
+    umbral <- 5*mean(cooksd, na.rm=T)  
+    index <- which(cooksd>umbral)
+    values <- file_naomit[index, ]
+    
+    
+    #Color 
+    read_file$Colour <- "Standard"
+    read_file$Colour[read_file$Value %in% values$Value]="Outliers"
+    
+    #Put NA
+    read_file$Value[read_file$Value %in% values$Value] <- NA
+    
+    ggplot(read_file, aes(x=Date, y= Value, color= Colour)) + geom_point() + ggtitle(paste0("Grafica de Outliers","\n", splitname[1], "\n", "Variable ", variable)) + theme(plot.title = element_text(hjust = 0.5))
+    ggsave(paste0(here::here(), "/Outliers/", splitname[1], "_", variable, ".pdf"))
+    
+  
+    
     values_out <- which(read_file$Value < daily_res$RH[2] || read_file$Value > daily_res$RH[1])
     new_file <- paste0(splitname[1], "_", variable, "_", "NE", ".txt")
     
@@ -335,6 +356,25 @@ daily_control <- function (daily_restric, file, sepa, date_format )
   
   if(variable == "TX")
   {
+    
+    file_naomit <- na.omit(read_file)
+    mod <- lm(Value ~ ., data=file_naomit)
+    cooksd <- cooks.distance(mod)
+    umbral <- 5*mean(cooksd, na.rm=T)  
+    index <- which(cooksd>umbral)
+    values <- file_naomit[index, ]
+    
+    
+    #Color 
+    read_file$Colour <- "Standard"
+    read_file$Colour[read_file$Value %in% values$Value]="Outliers"
+    
+    #Put NA
+    read_file$Value[read_file$Value %in% values$Value] <- NA
+    
+    ggplot(read_file, aes(x=Date, y= Value, color= Colour)) + geom_point() + ggtitle(paste0("Grafica de Outliers","\n", splitname[1], "\n", "Variable ", variable)) + theme(plot.title = element_text(hjust = 0.5))
+    ggsave(paste0(here::here(), "/Outliers/", splitname[1], "_", variable, ".pdf"))
+    
     values_out <- which(read_file$Value < daily_res$TX[2] || read_file$Value > daily_res$TX[1])
     new_file <- paste0(splitname[1], "_", variable, "_", "CD", ".txt")
     if(length(values_out)!=0)
@@ -348,6 +388,28 @@ daily_control <- function (daily_restric, file, sepa, date_format )
   
   if(variable == "TM")
   {
+    
+    
+    file_naomit <- na.omit(read_file)
+    mod <- lm(Value ~ ., data=file_naomit)
+    cooksd <- cooks.distance(mod)
+    umbral <- 5*mean(cooksd, na.rm=T)  
+    index <- which(cooksd>umbral)
+    values <- file_naomit[index, ]
+    
+    
+    #Color 
+    read_file$Colour <- "Standard"
+    read_file$Colour[read_file$Value %in% values$Value]="Outliers"
+    
+    #Put NA
+    read_file$Value[read_file$Value %in% values$Value] <- NA
+    
+    ggplot(read_file, aes(x=Date, y= Value, color= Colour)) + geom_point() + ggtitle(paste0("Grafica de Outliers","\n", splitname[1], "\n", "Variable ", variable)) + theme(plot.title = element_text(hjust = 0.5))
+    ggsave(paste0(here::here(), "/Outliers/", splitname[1], "_", variable, ".pdf"))
+    
+  
+    
     values_out <- which(read_file$Value < daily_res$TM[2] || read_file$Value > daily_res$TM[1])
     new_file <- paste0(splitname[1], "_", variable, "_", "CD", ".txt")
     
@@ -361,6 +423,28 @@ daily_control <- function (daily_restric, file, sepa, date_format )
   
   if(variable == "SR")
   {
+    
+    
+    file_naomit <- na.omit(read_file)
+    mod <- lm(Value ~ ., data=file_naomit)
+    cooksd <- cooks.distance(mod)
+    umbral <- 5*mean(cooksd, na.rm=T)  
+    index <- which(cooksd>umbral)
+    values <- file_naomit[index, ]
+    
+    
+    #Color 
+    read_file$Colour <- "Standard"
+    read_file$Colour[read_file$Value %in% values$Value]="Outliers"
+    
+    #Put NA
+    read_file$Value[read_file$Value %in% values$Value] <- NA
+    
+    ggplot(read_file, aes(x=Date, y= Value, color= Colour)) + geom_point() + ggtitle(paste0("Grafica de Outliers","\n", splitname[1], "\n", "Variable ", variable)) + theme(plot.title = element_text(hjust = 0.5))
+    ggsave(paste0(here::here(), "/Outliers/", splitname[1], "_", variable, ".pdf"))
+    
+    
+    
     values_out <- which(read_file$Value < daily_res$SR[2] || read_file$Value > daily_res$SR[1])
     new_file <- paste0(splitname[1], "_", variable, "_", "CALCM2", ".txt")
     
