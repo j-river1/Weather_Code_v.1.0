@@ -5,7 +5,7 @@ rm(list=ls())
 #Libraries
 libraries <- c("tsoutliers","roxygen2","rgeos","dismo","ggdendro", "geosphere", "rgdal", "sp", "here",
                "geosphere", "data.table", "RCurl","randomForest","ggplot2","RMAWGEN","stringr", "zoo",
-               "abind", "plyr", "imputeTS","reshape2","parallel", "maptools","stringr","dplyr")
+               "abind", "plyr", "imputeTS","reshape2","parallel", "maptools","stringr","dplyr", "outliers")
 
 #Install packages 
 list.of.packages <- libraries
@@ -25,6 +25,7 @@ source("All_Functions.R")
 #Create folders
 mainDir <- getwd()
 dir.create(file.path(mainDir, "Original_Data"), showWarnings = FALSE)
+dir.create(file.path(mainDir, "Outliers"), showWarnings = FALSE)
 dir.create(file.path(mainDir, "SpatialInformation_InputVariables"), showWarnings = FALSE)
 dir.create(file.path(mainDir, "AfterHourlyControl_Data"), showWarnings = FALSE)
 dir.create(file.path(mainDir, "AfterDailyControl_Data"), showWarnings = FALSE)
@@ -77,7 +78,7 @@ Start_date <- c("2005-1-1")
 End_date <- c("2012-12-31")
 Percentage <- 0.7
 separt <- ""
-date_format <- "%Y%m%d"
+date_format <- "%Y-%m-%d"
 dist_Station <- 20000
 variables <- data.frame("Star_date"=Start_date, "End_date"=End_date, "Approved_percentage"= Percentage, "separt"=separt,"Date_Format"=date_format, "Distance_Cluster_Station"=dist_Station, "Time_Type"=Hourly_Daily)
 write.csv(variables, paste0(here::here(),"/SpatialInformation_InputVariables/","Input_Variables.csv"), row.names = FALSE)
