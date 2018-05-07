@@ -303,12 +303,7 @@ daily_control <- function (daily_restric, file, sepa, date_format )
   #convert_units <- function(weatherdata, date_format="%Y%m%d", typefile, sepa)
   read_file <- convert_units(weatherdata=file , date_format=date_format, sepa= sepa )
   
-  file_naomit <- na.omit(read_file)
-  mod <- lm(Value ~ ., data=file_naomit)
-  cooksd <- cooks.distance(mod)
-  umbral <- 5*mean(cooksd, na.rm=T)  
-  index <- which(cooksd>umbral)
-  values <- file_naomit[index, ]
+
   
   
   
@@ -324,7 +319,7 @@ daily_control <- function (daily_restric, file, sepa, date_format )
     file_naomit <- na.omit(read_file)
     mod <- lm(Value ~ ., data=file_naomit)
     cooksd <- cooks.distance(mod)
-    umbral <- 5*mean(cooksd, na.rm=T)  
+    umbral <- 4*mean(cooksd, na.rm=T)  
     index <- which(cooksd>umbral)
     values <- file_naomit[index, ]
     
@@ -360,7 +355,7 @@ daily_control <- function (daily_restric, file, sepa, date_format )
     file_naomit <- na.omit(read_file)
     mod <- lm(Value ~ ., data=file_naomit)
     cooksd <- cooks.distance(mod)
-    umbral <- 5*mean(cooksd, na.rm=T)  
+    umbral <- 4*mean(cooksd, na.rm=T)  
     index <- which(cooksd>umbral)
     values <- file_naomit[index, ]
     
@@ -393,7 +388,7 @@ daily_control <- function (daily_restric, file, sepa, date_format )
     file_naomit <- na.omit(read_file)
     mod <- lm(Value ~ ., data=file_naomit)
     cooksd <- cooks.distance(mod)
-    umbral <- 5*mean(cooksd, na.rm=T)  
+    umbral <- 4*mean(cooksd, na.rm=T)  
     index <- which(cooksd>umbral)
     values <- file_naomit[index, ]
     
@@ -428,7 +423,7 @@ daily_control <- function (daily_restric, file, sepa, date_format )
     file_naomit <- na.omit(read_file)
     mod <- lm(Value ~ ., data=file_naomit)
     cooksd <- cooks.distance(mod)
-    umbral <- 5*mean(cooksd, na.rm=T)  
+    umbral <- 4*mean(cooksd, na.rm=T)  
     index <- which(cooksd>umbral)
     values <- file_naomit[index, ]
     
