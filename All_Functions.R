@@ -327,14 +327,13 @@ daily_control <- function (daily_restric, file, sepa, date_format )
     #Color 
     read_file$Colour <- "Standard"
     read_file$Colour[read_file$Value %in% values$Value]="Outliers"
-    
-    #Put NA
-    read_file$Value[read_file$Value %in% values$Value] <- NA
+
     
     ggplot(read_file, aes(x=Date, y= Value, color= Colour)) + geom_point() + ggtitle(paste0("Grafica de Outliers","\n", splitname[1], "\n", "Variable ", variable)) + theme(plot.title = element_text(hjust = 0.5))
     ggsave(paste0(here::here(), "/Outliers/", splitname[1], "_", variable, ".pdf"))
     
-  
+    #Put NA
+    read_file$Value[read_file$Value %in% values$Value] <- NA  
     
     values_out <- which(read_file$Value < daily_res$RH[2] || read_file$Value > daily_res$RH[1])
     new_file <- paste0(splitname[1], "_", variable, "_", "NE", ".txt")
@@ -363,12 +362,14 @@ daily_control <- function (daily_restric, file, sepa, date_format )
     #Color 
     read_file$Colour <- "Standard"
     read_file$Colour[read_file$Value %in% values$Value]="Outliers"
-    
-    #Put NA
-    read_file$Value[read_file$Value %in% values$Value] <- NA
+
     
     ggplot(read_file, aes(x=Date, y= Value, color= Colour)) + geom_point() + ggtitle(paste0("Grafica de Outliers","\n", splitname[1], "\n", "Variable ", variable)) + theme(plot.title = element_text(hjust = 0.5))
     ggsave(paste0(here::here(), "/Outliers/", splitname[1], "_", variable, ".pdf"))
+    
+    
+    #Put NA
+    read_file$Value[read_file$Value %in% values$Value] <- NA
     
     values_out <- which(read_file$Value < daily_res$TX[2] || read_file$Value > daily_res$TX[1])
     new_file <- paste0(splitname[1], "_", variable, "_", "CD", ".txt")
@@ -396,13 +397,13 @@ daily_control <- function (daily_restric, file, sepa, date_format )
     #Color 
     read_file$Colour <- "Standard"
     read_file$Colour[read_file$Value %in% values$Value]="Outliers"
-    
-    #Put NA
-    read_file$Value[read_file$Value %in% values$Value] <- NA
+
     
     ggplot(read_file, aes(x=Date, y= Value, color= Colour)) + geom_point() + ggtitle(paste0("Grafica de Outliers","\n", splitname[1], "\n", "Variable ", variable)) + theme(plot.title = element_text(hjust = 0.5))
     ggsave(paste0(here::here(), "/Outliers/", splitname[1], "_", variable, ".pdf"))
-    
+  
+    #Put NA
+    read_file$Value[read_file$Value %in% values$Value] <- NA  
   
     
     values_out <- which(read_file$Value < daily_res$TM[2] || read_file$Value > daily_res$TM[1])
@@ -432,13 +433,12 @@ daily_control <- function (daily_restric, file, sepa, date_format )
     read_file$Colour <- "Standard"
     read_file$Colour[read_file$Value %in% values$Value]="Outliers"
     
-    #Put NA
-    read_file$Value[read_file$Value %in% values$Value] <- NA
     
     ggplot(read_file, aes(x=Date, y= Value, color= Colour)) + geom_point() + ggtitle(paste0("Grafica de Outliers","\n", splitname[1], "\n", "Variable ", variable)) + theme(plot.title = element_text(hjust = 0.5))
     ggsave(paste0(here::here(), "/Outliers/", splitname[1], "_", variable, ".pdf"))
     
-    
+    #Put NA
+    read_file$Value[read_file$Value %in% values$Value] <- NA
     
     values_out <- which(read_file$Value < daily_res$SR[2] || read_file$Value > daily_res$SR[1])
     new_file <- paste0(splitname[1], "_", variable, "_", "CALCM2", ".txt")
