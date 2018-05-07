@@ -346,7 +346,7 @@ daily_control <- function (daily_restric, file, sepa, date_format )
     
 
     
-    if(length(values_out)!=0 & amount_out == 0)
+    if(length(values_out)!=0)
     {
       read_file$Value[values_out] <- NA
       warning("There is a value out of limits ", read_file[values_out,] )
