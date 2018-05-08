@@ -18,10 +18,7 @@ lapply(list.of.packages, require, character.only = TRUE)
 #Load functions
 source("All_Functions.R")
 
-
 #**The setwd() must be directory where are the source above.
-
-
 #Create folders
 mainDir <- getwd()
 create_folders(mainDir)
