@@ -24,21 +24,7 @@ source("All_Functions.R")
 
 #Create folders
 mainDir <- getwd()
-dir.create(file.path(mainDir, "Original_Data"), showWarnings = FALSE)
-dir.create(file.path(mainDir, "Outliers"), showWarnings = FALSE)
-dir.create(file.path(mainDir, "SpatialInformation_InputVariables"), showWarnings = FALSE)
-dir.create(file.path(mainDir, "AfterHourlyControl_Data"), showWarnings = FALSE)
-dir.create(file.path(mainDir, "AfterDailyControl_Data"), showWarnings = FALSE)
-dir.create(file.path(mainDir, "RandomForest"), showWarnings = FALSE)
-dir.create(file.path(mainDir, "Rmawgen"), showWarnings = FALSE)
-dir.create(file.path(mainDir, "Graphics"), showWarnings = FALSE)
-dir.create(file.path(mainDir, "Results"), showWarnings = FALSE)
-dir.create(file.path(mainDir, "Final_Data"), showWarnings = FALSE)
-mainDir <- paste0(mainDir,"/", "Rmawgen" )
-dir.create(file.path(mainDir, "Files_By_Station" ), showWarnings = FALSE)
-mainDir <- getwd()
-mainDir <-  paste0(mainDir,"/", "Graphics" )
-dir.create(file.path(mainDir, "Clustering_Stations"), showWarnings = FALSE)
+create_folders(mainDir)
 #**Put into the folder Original_Data all weaher files data.
 
 
