@@ -335,6 +335,10 @@ daily_control <- function (daily_restric, file, sepa, date_format )
     #Put NA
     read_file$Value[read_file$Value %in% values$Value] <- NA  
     
+    #Delete column Colour
+    read_file$Colour <- NULL 
+    
+    
     values_out <- which(read_file$Value < daily_res$RH[2] || read_file$Value > daily_res$RH[1])
     new_file <- paste0(splitname[1], "_", variable, "_", "NE", ".txt")
     
@@ -371,6 +375,11 @@ daily_control <- function (daily_restric, file, sepa, date_format )
     #Put NA
     read_file$Value[read_file$Value %in% values$Value] <- NA
     
+    
+    #Delete column Colour
+    read_file$Colour <- NULL 
+    
+    
     values_out <- which(read_file$Value < daily_res$TX[2] || read_file$Value > daily_res$TX[1])
     new_file <- paste0(splitname[1], "_", variable, "_", "CD", ".txt")
     if(length(values_out)!=0)
@@ -404,7 +413,9 @@ daily_control <- function (daily_restric, file, sepa, date_format )
   
     #Put NA
     read_file$Value[read_file$Value %in% values$Value] <- NA  
-  
+    
+    #Delete column Colour
+    read_file$Colour <- NULL 
     
     values_out <- which(read_file$Value < daily_res$TM[2] || read_file$Value > daily_res$TM[1])
     new_file <- paste0(splitname[1], "_", variable, "_", "CD", ".txt")
@@ -439,6 +450,10 @@ daily_control <- function (daily_restric, file, sepa, date_format )
     
     #Put NA
     read_file$Value[read_file$Value %in% values$Value] <- NA
+    
+    #Delete column Colour
+    read_file$Colour <- NULL 
+    
     
     values_out <- which(read_file$Value < daily_res$SR[2] || read_file$Value > daily_res$SR[1])
     new_file <- paste0(splitname[1], "_", variable, "_", "CALCM2", ".txt")
