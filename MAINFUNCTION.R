@@ -83,9 +83,9 @@ controlHourlyDaily(type = variables$Time_Type)
 choose_stations() 
 
 #File with format for using  Rmwagen
-put_rmawgenformat(list.files(here("AfterDailyControl_Data")), 'TX')
-put_rmawgenformat(list.files(here("AfterDailyControl_Data")), 'TM')
-put_rmawgenformat(list.files(here("AfterDailyControl_Data")), 'P')
+put_rmawgenformat(list.files(here::here("AfterDailyControl_Data")), 'TX')
+put_rmawgenformat(list.files(here::here("AfterDailyControl_Data")), 'TM')
+put_rmawgenformat(list.files(here::here("AfterDailyControl_Data")), 'P')
 
 
 
