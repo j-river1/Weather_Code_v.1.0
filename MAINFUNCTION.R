@@ -87,13 +87,10 @@ put_rmawgenformat(list.files(here::here("AfterDailyControl_Data")), 'TX')
 put_rmawgenformat(list.files(here::here("AfterDailyControl_Data")), 'TM')
 put_rmawgenformat(list.files(here::here("AfterDailyControl_Data")), 'P')
 
-
-
-
-
 #Using Rmwagen 
 
-station <- c("13030010", "13037040")
+#station <- c("13030010", "13037040")
+station <- c("ChiapasAlpujarras", "Chiapas5deMarzo")
 graph_all("TEMPERATURE_MAX", 'Temperatura_Maxima', station)
 graph_all("TEMPERATURE_MIN", 'Temperatura_Minima', station)
 graph_all("PRECIPITATION", 'Precipitacion', station)
