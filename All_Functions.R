@@ -1822,11 +1822,16 @@ graph_station <- function (Station_table, variable)
     #weather_data <- paste0(".", "/", "RH", "/", name_file )   
     weather_data <- paste0(".", "/Rmawgen/", "Files_By_Station", "/", name_file )
   } 
-  else
+  else if (namefile == "P")
   {
-    name_file <- paste0(paste(name,namefile, sep="_"),".txt")
+    name_file <- paste0(paste(name,namefile, "MM",  sep="_"),".txt")
     weather_data <- paste0(".", "/Rmawgen/", "Files_By_Station", "/", name_file )   
     
+  }
+  else if (namefile == "TX" || namefile == "TM")
+  {
+    name_file <- paste0(paste(name,namefile, "CD",  sep="_"),".txt")
+    weather_data <- paste0(".", "/Rmawgen/", "Files_By_Station", "/", name_file )   
   }
   
   
@@ -2211,6 +2216,12 @@ applying_rmwagen_2 <- function (TEMPERATURE_MAX, TEMPERATURE_MIN, PRECIPITATION,
       real_data <- generation_prec$prec_mes - 4
       fill_data <- generation_prec$prec_gen - 4
       
+      if(length(station)==1) 
+      {
+        real_data <- generation_prec$prec_mes[,station, drop=FALSE] - 4
+        fill_data <- generation_prec$prec_gen[,station, drop=FALSE] - 4
+      }
+      
     }
     
     else
@@ -2236,17 +2247,8 @@ applying_rmwagen_2 <- function (TEMPERATURE_MAX, TEMPERATURE_MIN, PRECIPITATION,
     
   }
   
-  if(length(station)==1) 
-  {
-    real_data <- generation_prec$prec_mes[,station, drop=FALSE] - 4
-    fill_data <- generation_prec$prec_gen[,station, drop=FALSE] - 4
-  }
-  
-  else
-  {
-    real_data <- generation_prec$prec_mes - 4
-    fill_data <- generation_prec$prec_gen - 4
-  }
+
+
   
   
   
