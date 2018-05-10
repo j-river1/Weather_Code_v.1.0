@@ -2163,12 +2163,28 @@ applying_rmwagen_2 <- function (TEMPERATURE_MAX, TEMPERATURE_MIN, PRECIPITATION,
     median <- lapply(PRECIPITATION[station], median, na.rm =T)
     test <- lapply(median, function(x) { if (x < 1) {result <- TRUE} else {result <- FALSE}})
     
+    
+    if(length(station)==1)
+    {
+      PRECIPITATION['fake_1']=PRECIPITATION[station]
+      PRECIPITATION['fake_2']=PRECIPITATION[station]
+      pstation = c(station, c('fake_1','fake_2'))
+      
+    }
+    
+    else
+    {
+      pstation = station
+    }
+    
+    
+    
     if(any (test == TRUE))
     {
       warning("There is a problem with distribution of Precipitation. This is very biased to zero")
       PRECIPITATION[station] <- PRECIPITATION[station] + 4
       generation_prec <- tryCatch(ComprehensivePrecipitationGenerator(
-        station=station,
+        station=pstation,
         prec_all=PRECIPITATION,
         year_min=year_min,
         year_max=year_max,
@@ -2219,6 +2235,22 @@ applying_rmwagen_2 <- function (TEMPERATURE_MAX, TEMPERATURE_MIN, PRECIPITATION,
     
     
   }
+  
+  if(length(station)==1) 
+  {
+    real_data <- generation_prec$prec_mes[,station, drop=FALSE] - 4
+    fill_data <- generation_prec$prec_gen[,station, drop=FALSE] - 4
+  }
+  
+  else
+  {
+    real_data <- generation_prec$prec_mes - 4
+    fill_data <- generation_prec$prec_gen - 4
+  }
+  
+  
+  
+  
   
   result <- list(real_data= real_data, estimated_data = fill_data, date=All_data)
   
