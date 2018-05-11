@@ -2410,7 +2410,7 @@ random_forest_SR <- function(station)
     
     #Read table
     #station <- read.table(paste0("./Randomforest/",station), header = TRUE)
-    station <- read.table(paste0(here::here("Randomforest"),"/", station, ".txt"), header = TRUE)
+    station <- read.table(paste0(here::here("Randomforest"),"/", station), header = TRUE)
     
     #Real Data
     
