@@ -829,7 +829,7 @@ convert_units <- function(weatherdata, date_format="%Y%m%d", sepa)
   #SR 
   if(split_name[3]=='MJM2')
   {
-    data$Value <- data$Value/23.88
+    data$Value <- data$Value*23.88
   }
   
   #Temperatures: target units is celcius degrees
