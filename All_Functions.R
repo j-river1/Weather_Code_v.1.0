@@ -319,7 +319,7 @@ daily_control <- function (daily_restric, file, sepa, date_format )
     file_naomit <- na.omit(read_file)
     mod <- lm(Value ~ ., data=file_naomit)
     cooksd <- cooks.distance(mod)
-    umbral <- 4*mean(cooksd, na.rm=T)  
+    umbral <- 9*mean(cooksd, na.rm=T)  
     index <- which(cooksd>umbral)
     values <- file_naomit[index, ]
     
@@ -358,7 +358,7 @@ daily_control <- function (daily_restric, file, sepa, date_format )
     file_naomit <- na.omit(read_file)
     mod <- lm(Value ~ ., data=file_naomit)
     cooksd <- cooks.distance(mod)
-    umbral <- 4*mean(cooksd, na.rm=T)  
+    umbral <- 9*mean(cooksd, na.rm=T)  
     index <- which(cooksd>umbral)
     values <- file_naomit[index, ]
     
@@ -398,7 +398,7 @@ daily_control <- function (daily_restric, file, sepa, date_format )
     file_naomit <- na.omit(read_file)
     mod <- lm(Value ~ ., data=file_naomit)
     cooksd <- cooks.distance(mod)
-    umbral <- 4*mean(cooksd, na.rm=T)  
+    umbral <- 9*mean(cooksd, na.rm=T)  
     index <- which(cooksd>umbral)
     values <- file_naomit[index, ]
     
@@ -435,7 +435,7 @@ daily_control <- function (daily_restric, file, sepa, date_format )
     file_naomit <- na.omit(read_file)
     mod <- lm(Value ~ ., data=file_naomit)
     cooksd <- cooks.distance(mod)
-    umbral <- 4*mean(cooksd, na.rm=T)  
+    umbral <- 9*mean(cooksd, na.rm=T)  
     index <- which(cooksd>umbral)
     values <- file_naomit[index, ]
     
@@ -1818,7 +1818,7 @@ graph_station <- function (Station_table, variable)
   }
   else if (namefile == "RH")
   {
-    name_file <- paste0(paste(name,namefile, sep="_"),".txt")
+    name_file <- paste0(paste(name,namefile, "NE", sep="_"),".txt")
     #weather_data <- paste0(".", "/", "RH", "/", name_file )   
     weather_data <- paste0(".", "/Rmawgen/", "Files_By_Station", "/", name_file )
   } 
@@ -2302,7 +2302,7 @@ controlHourlyDaily <- function(type)
     
     #Daily Control NA
     names_stations_NA <- Check_All_Station_NA(list.files(path = "./Original_Data"), variables$Approved_percentage)
-    names_stations_few_NA <- Check_All_Station_Few_NA(list.files(path = "./Original_Data"), 0.06)
+    names_stations_few_NA <- Check_All_Station_Few_NA(list.files(path = "./Original_Data"), 1)
     lapply(list.files(here::here("Original_Data")), daily_control, daily_restric = Daily_restric, sepa = separt, date_format = date_format )
     
     results <- lapply(list.files(path= "./AfterDailyControl_Data"), info_station, percentage= variables$Approved_percentage, sepa = variables$separt, time =2)
