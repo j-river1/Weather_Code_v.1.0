@@ -1054,7 +1054,7 @@ read_files_form <- function (files, variable)
 #                 -vari = variable match
 
 
-#put_rmawgenformat(list.files("./AfterDailyControl_Data"), 'TX', Start_date, End_date)
+
 
 put_rmawgenformat <- function(files, vari)
 {
@@ -1812,7 +1812,7 @@ graph_station <- function (Station_table, variable)
   
   if(namefile == "SR" )
   {
-    name_file <- paste0(paste(name,namefile, sep="_"),".txt")
+    name_file <- paste0(paste(name,namefile, "CALCM2",sep="_"),".txt")
     #weather_data <- paste0(".", "/", "SR", "/", name_file )   
     weather_data <- paste0(".", "/Rmawgen/", "Files_By_Station", "/", name_file )
   }
@@ -1846,9 +1846,6 @@ graph_station <- function (Station_table, variable)
 #             -variable_rmw. variable for using in rmwagen
 #             -variable_plot. variable for plot
 #Return graphs
-
-
-#graph_all (list.files(pattern = "\\.csv$"), "./Results/Results_DailyControl.csv", "TEMPERATURE_MAX", 'Temperatura_M?xima', manual = 2, choose_station = c(24,7))
 
 graph_all <- function(variable_rmw, variable_plot, choose_station)
 {
@@ -2097,7 +2094,9 @@ applying_rmwagen <- function (info_station, TEMPERATURE_MAX, TEMPERATURE_MIN, PR
 #                    If manual is 2. User must enter stations for matching
 #          - choose stations. Choose the stations for matching. It must be a vector
 
-#graph_all (list.files(pattern = "\\.csv$"), "./Results/Results_DailyControl.csv", "TEMPERATURE_MAX", 'Temperatura_M?xima', manual = 2, choose_station = c(24,7))
+
+
+
 applying_rmwagen_2 <- function (TEMPERATURE_MAX, TEMPERATURE_MIN, PRECIPITATION, n_GPCA_iter = 10, n_GPCA_iteration_residuals =10, lag=2, p_prec = 3, p_test =2, choose_station, menu)
 {
   
@@ -2424,7 +2423,7 @@ random_forest_SR <- function(station)
     DataNas = station[NAs,]
     
     #Delete Columns "Date", "P", "TM"
-    station_rf <- na.omit(station[,-which(colnames(station)%in% c("Date", "TM", "RH"))])
+    station_rf <- na.omit(station[,-which(colnames(station)%in% c("Date", "TM", "P"))])
     #DataNas <- na.omit(DataNas[,-which(colnames(station)%in% c("Date", "TM", "RH", "SR"))])
     
     
@@ -2445,8 +2444,10 @@ random_forest_SR <- function(station)
     result <- data.frame(real_data$Date, real_data$SR, predic$SR, station_names)
     colnames(result) <- c("Date", "Real_Data", "Estimated_Data", "Station_Names")
     
-    name <- paste0(name, ".txt")
+    #name <- paste0(name, ".txt")
     #write.table(predic, file = paste(getwd(),"Final_Files_SR", name, sep =  "/"), row.names = FALSE, quote = FALSE, col.names = TRUE)
+    
+
     
     
     return(result)
@@ -2520,7 +2521,8 @@ graph_all_SR_RH <- function (listFiles, variable)
     
     if(variable == "Humedad_Relativa")
     {
-        Data_Complete <- lapply(listFiles, random_forest_RH)
+        #Aca hay un error      
+        Data_Complete <- lapply(listFiles, random_forest_SR)
     }
     
     lapply(Data_Complete, graph_station, variable = variable)
