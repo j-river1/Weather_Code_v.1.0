@@ -57,8 +57,8 @@ write.csv(Daily_restric , paste0(here::here(),"/SpatialInformation_InputVariable
 #If the time is in terms of days so Hourly_Daily  = 2
 
 Hourly_Daily <- 2
-Start_date <- c("2013-1-1")
-End_date <- c("2017-12-31")
+Start_date <- c("2013")
+End_date <- c("2017")
 Percentage <- 0.7
 separt <- ""
 date_format <- "%Y-%m-%d"
@@ -89,8 +89,7 @@ put_rmawgenformat(list.files(here::here("AfterDailyControl_Data")), 'P')
 
 #Using Rmwagen 
 
-#station <- c("13030010", "13037040")
-station <- c("ChiapasAlpujarras", "Chiapas5deMarzo")
+station <- c("ChiapasAgroipsa", "ChiapasCampoExperimentalRosarioIzapa")
 graph_all("TEMPERATURE_MAX", 'Temperatura_Maxima', station)
 graph_all("TEMPERATURE_MIN", 'Temperatura_Minima', station)
 graph_all("PRECIPITATION", 'Precipitacion', station)
