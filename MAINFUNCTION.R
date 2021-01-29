@@ -57,8 +57,8 @@ write.csv(Daily_restric , paste0(here::here(),"/SpatialInformation_InputVariable
 #If the time is in terms of days so Hourly_Daily  = 2
 
 Hourly_Daily <- 2
-Start_date <- c("2013")
-End_date <- c("2017")
+Start_date <- c("2013-1-1")
+End_date <- c("2017-12-31")
 Percentage <- 0.7
 separt <- ""
 date_format <- "%Y-%m-%d"
